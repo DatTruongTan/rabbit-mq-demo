@@ -27,7 +27,15 @@ func main() {
 	defer channel.Close()
 
 	// subscribe to get messages from the queue
-	messages, err := channel.Consume(queueName, "", true, false, false, false, nil)
+	messages, err := channel.Consume(
+		queueName, // queue
+		"",        // consumer
+		true,      // auto-ack
+		false,     // exclusive
+		false,     // no-local
+		false,     // no-wait
+		nil,       // args
+	)
 	if err != nil {
 		panic(err)
 	}

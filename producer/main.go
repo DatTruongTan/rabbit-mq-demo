@@ -26,7 +26,14 @@ func main() {
 	defer channel.Close()
 
 	// declare the queue
-	_, err = channel.QueueDeclare(queueName, true, false, false, false, nil)
+	q, err := channel.QueueDeclare(
+		queueName, // name
+		true,      // durable
+		false,     // delete when unused
+		false,     // exclusive
+		false,     // no-wait
+		nil,       // arguments
+	)
 	if err != nil {
 		panic(err)
 	}
@@ -49,7 +56,13 @@ func main() {
 		}
 
 		// Publish a message to the queue
-		err = channel.Publish("", queueName, false, false, message)
+		err = channel.Publish(
+			"",      // exchange
+			q.Name,  // routing key
+			false,   // mandatory
+			false,   // immediate
+			message, // actual message
+		)
 		if err != nil {
 			log.Printf("Failed to publish message: %v", err)
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to publish the message"})
