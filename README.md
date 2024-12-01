@@ -11,7 +11,7 @@ password: guest
 
 ```bash
 # start docker
-docker compose -up -d
+docker compose up -d
 
 # start the producer
 make producer
