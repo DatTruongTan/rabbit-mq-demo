@@ -1,5 +1,7 @@
 # rabbit-mq-demo
 
+Just a super tiny pet project to learn go with rabbit-mq
+
 ## RabbitMQ account
 
 ```text
